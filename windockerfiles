@@ -1,0 +1,29 @@
+# escape=`
+FROM mcr.microsoft.com/windows/servercore:ltsc2019
+SHELL ["cmd", "/S", "/C"]
+COPY doxygen_1.8.16/ /doctools/doxygen_1.8.16/
+COPY mscgen_0.20/ /doctools/mscgen_0.20/
+# delete doxywizard
+COPY graphviz_2.38/ /doctools/graphviz_2.38/
+COPY plantuml_1.2019.11/ /doctools/plantuml_1.2019.11/
+COPY hhc.exe /doctools/
+COPY jre180_92 /jre180_92/
+COPY miktex_2.9.zip doctools
+RUN `
+    start /wait powershell -command "Expand-Archive C:\doctools\miktex_2.9.zip -DestinationPath C:\doctools" `
+    && del /q C:\doctools\miktex_2.9.zip `
+    && set "PATH=C:\jre180_92\bin;%PATH%"
+
+# -DestinationPath C:\doctools\miktex_2.9 results C:\doctools\miktex_2.9\miktex_2.9
+# batch     set "PATH=!MIKTEX!\texmfs\install\miktex\bin\x64;%PATH%"
+# Expand-Archive .zip -DestinationPath 
+#if "%MIKTEX%"=="" set "MIKTEX=D:\miktex_2.9"
+#HHC_LOCATION           = "C:\Program Files (x86)\HTML Help Workshop\hhc.exe" for
+#set "DOXYGEN=!TOOLSDIR!\doxygen_1.8.16\doxygen.exe"
+#echo MSCGEN_PATH = "!TOOLSDIR!\mscgen_0.20" >> %DOXYFILE%
+#echo DOT_PATH = "!TOOLSDIR!\graphviz_2.38\bin" >> %DOXYFILE%
+#echo PLANTUML_JAR_PATH = "!TOOLSDIR!\plantuml_1.2019.11" >> %DOXYFILE%
+#docker build -f .\ -t :0. -m 2GB .
+#docker run --rm -it -v d:/git/some_stack:c:/some_stack
+
+# win container for gnerating Doxydocs (with miktex) > azure serverbuild + behind firewall > no internet access
