@@ -1,0 +1,25 @@
+#### linux serial #####
+https://github.com/wjwwood/serial/blob/main/src/impl/unix.cc
+https://tldp.org/HOWTO/pdf/Serial-Programming-HOWTO.pdf
+https://blog.mbedded.ninja/programming/operating-systems/linux/linux-serial-ports-using-c-cpp/
+https://digilander.libero.it/robang/rubrica/serial.htm
+
+##### win serial #####
+https://ds.opdenbrouw.nl/micprg/pdf/serial-win.pdf
+https://learn.microsoft.com/en-us/windows/win32/devio/configuring-a-communications-resource
+https://github.com/wjwwood/serial/blob/main/src/impl/win.cc
+https://learn.microsoft.com/en-us/windows/win32/devio/communications-events
+/\ EV_RXCHAR
+https://xanthium64.rssing.com/chan-53317880/article65.html
+hXXp://www.egmont.com.pl/addi-data/instrukcje/standard_driver.pdf < zcomplains insecure
+
+#### hdlc ######
+https://github.com/djboni/hdlc.git
+https://github.com/bang-olufsen/yahdlc.git
+https://github.com/bang-olufsen/hdlcpp.git
+https://github.com/Strunzdesign/hdlcd.git
+https://github.com/lokraszewski/hdlco.git
+https://github.com/mengguang/minihdlc.git
+
+https://github.com/wjwwood/serial.git
+https://github.com/lokraszewski/serial.git < fork from above

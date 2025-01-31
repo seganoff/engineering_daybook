@@ -1,0 +1,67 @@
+file.bat
+@echo off
+REM some comment
+start powershell -noexit -command ".\<prog>.exe"
+start "windowName" call prog.exe someArg
+
+# lin filter_exclude_ary=("" newlineSeparated "") filter_include=$(IFS=: ; echo "${filter_include_ary[*]}") filter="${filter_include}-${filter_exclude}"
+#ps1
+$inclAry=@( "val1","val2")
+$incl = [system.String]::Join(":", $inclAry)
+$final_filter = "$incl-$excl"
+<#$final_filter = "$tempinclude-$excl"#>
+--gtest_filter=$final_filter #--gtest_output=xml:res.xml
+#in case mingw not in PATH # ` escape char for multiline command
+pathToYour\gdb.exe --args `
+prog.exe.debug args --gtest_filter=$filter
+
+# ip addr DontCare could be empty just port :2345
+gdbserver --attach 1.1.1.1:2345 $(pidof <prog>)
+bitbake_build/makedebugfs.sh && \
+cd /pathTo/debugfs && \
+pathTo/arm-wrs-linux-gnueabi-gdb -ex "set sysroot ./" -ex "set substitute-path /usr/src/debug ./usr/src/debug" -ex "target remote 192.168.0.101:2345"
+
+gdb$ set solib-search-path /path
+
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
+
+#New-Item -ItemType Dir -Path "nonempty\extradir"
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
+
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf"
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\" -Recurse -Force
+
+New-Item -ItemType Dir -Path "nonempty\extr\adir"
+Copy-Item -Path "xmcrt.pdf" -Destination ".\nonempty\extr\adir\1.pdf"
+
+hXXps://github.com/fliptheweb/bash-shortcuts-cheat-sheet
+c + Anf
+c + End + u delete line to Anf
+c + Back char | a + b word
+c + For char  | a + f word
+
+c+h backspace
+c+d char @ cursor
+
+a + d >> word
+a+Del << word(not wrkng)
+
+c + yank paste
+c + w	Cut the Word << the cursor to the clipboard
+c + k	Cut the Line >> the cursor to the clipboard
+
+c + t swap 2 chars before cursor | a + t words esc+t same
+
+Alt + u	UPPER capitalize every character from the cursor to the end of the current word.
+Alt + l	Lower the case of every character from the cursor to the end of the current word.
+Alt + c	Capitalize the character under the cursor and move to the end of the word.
+Alt + r	Cancel the changes and put back the line as it was in the history (revert)
+Сtrl + _	Undo
+
+Ctrl + r	Recall the last command including the specified character(s)(equivalent to : vim ~/.bash_history).
+Ctrl + p	Previous command in history (i.e. walk back through the command history)
+Ctrl + n	Next command in history (i.e. walk forward through the command history)
+Ctrl + s	Go back to the next most recent command.
+Ctrl + o	Execute the command found via Ctrl+r or Ctrl+s
+Ctrl + g	Escape from history searching mode
+Alt + .	Use the last word of the previous command

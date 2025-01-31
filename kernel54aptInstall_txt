@@ -1,0 +1,42 @@
+https://www.goodreads.com/work/quotes/72265903-linux-kernel-development-cookbook-over-75-recipes-to-solve-kernel-based
+kaiwan n billimoria aug 2020 kernel version ?
+sudo apt install git fakeroot build-essential tar ncurses-dev tar xz-utils libssl-dev bc stress python3-distutils libelf-dev 
+linux-headers-$(uname -r) bison flex libncurses5-dev util-linux net-tools linux-tools-$(uname -r) exuberant-ctags cscope 
+sysfsutils gnome-system-monitor curl perf-tools-unstable gnuplot rt-tests indent tree pstree smem libnuma-dev numactl hwloc 
+bpfcc-tools sparse flawfinder cppcheck tuna hexdump openjdk-14-jre trace-cmd virt-wha
+
+https://github.com/PacktPublishing/Linux-Kernel-Programming.git
+sudo apt install git fakeroot build-essential tar ncurses-dev tar xz-utils libssl-dev bc stress python3-distutils libelf-dev 
+linux-headers-$(uname -r) bison flex libncurses5-dev util-linux net-tools linux-tools-$(uname -r) exuberant-ctags cscope 
+sysfsutils gnome-system-monitor curl perf-tools-unstable gnuplot rt-tests indent tree pstree smem libnuma-dev numactl hwloc 
+bpfcc-tools sparse flawfinder cppcheck tuna hexdump openjdk-14-jre trace-cmd virt-what
+
+https://github.com/dockcross/dockcross
+
+https://github.com/PacktPublishing/Linux-Kernel-Programming_2E
+https://static.packt-cdn.com/downloads/9781803232225_Online_Chapter.pdf
+https://github.com/PacktPublishing/Linux-Kernel-Programming_2E/blob/main/ch1/pkg_install4ubuntu_lkp.sh
+from /\
+Guest Additions 
+usermod -G vboxsf -a ${USER}
+sudo apt install -y 
+gcc make perl git build-essential dkms ssh
+linux-headers-$(uname -r)
+
+sudo apt install -y \
+ bison build-essential flex libncurses5-dev ncurses-dev \
+libelf-dev libssl-dev tar util-linux xz-utils
+
+sudo apt install -y \
+bc bpfcc-tools bsdextrautils \
+clang cppcheck cscope curl exuberant-ctags \
+fakeroot flawfinder libnuma-dev \
+gnome-system-monitor gnuplot hwloc indent \
+man-db net-tools numactl openssh-server \
+perf-tools-unstable psmisc python3-distutils \
+rt-tests smem sparse stress sysfsutils \
+tldr-py trace-cmd tree tuna virt-what
+
+linux-headers-$(uname -r) linux-tools-$(uname -r) \
+openjdk-22-jdk
+qemu-system-arm
