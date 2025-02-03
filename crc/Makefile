@@ -1,0 +1,90 @@
+TARGET = prog
+LIBS = -lm
+CC = gcc
+CFLAGS = -g -Wall
+CXX = g++
+#CPPFLAGS= -g
+#LDFLAGS= -g #linkerFlags
+#LDLIBS=#libraries to link
+.PHONY: default all clean run
+compile: $(TARGET)
+run: $(TARGET)
+	./$(TARGET)
+all: clean compile run
+OBJECTS := $(patsubst %.c, %.o, $(wildcard *.c))
+HEADERS := $(wildcard *.h)
+%.o: %.c $(HEADERS)
+	$(CC) $(CFLAGS) -c $< -o $@
+.PRECIOUS: $(TARGET) $(OBJECTS)
+$(TARGET): $(OBJECTS)
+	$(CC) $(OBJECTS) -Wall $(LIBS) -o $@
+clean:
+	-rm -f *.o
+	-rm -f $(TARGET)
+
+#CC=gcc
+#CXX=g++
+#RM=rm -f
+#CPPFLAGS=-g $(shell root-config --cflags)
+#LDFLAGS=-g $(shell root-config --ldflags)
+#LDLIBS=$(shell root-config --libs)
+#SRCS=tool.cc support.cc
+#OBJS=$(subst .cc,.o,$(SRCS))
+#all: tool
+#tool: $(OBJS)
+#    $(CXX) $(LDFLAGS) -o tool $(OBJS) $(LDLIBS)
+#depend: .depend
+#.depend: $(SRCS)
+#    $(RM) ./.depend
+#    $(CXX) $(CPPFLAGS) -MM $^>>./.depend;
+#clean:
+#	$(RM) $(OBJS)
+#distclean: clean
+#    $(RM) *~ .depend
+#include .depend
+
+#Project / include 	Header files (*.hpp, *.h, *.hxx, *.h++)
+#Project / src 	Implementation files (*.cpp)
+#Project / build / objects 	Object files (*.o)
+#Project / build / apps 	Executables 
+#Project/Makefile:
+#CXX      := -c++
+#CXXFLAGS := -pedantic-errors -Wall -Wextra -Werror
+#LDFLAGS  := -L/usr/lib -lstdc++ -lm
+#BUILD    := ./build
+#OBJ_DIR  := $(BUILD)/objects
+#APP_DIR  := $(BUILD)/apps
+#TARGET   := program
+#INCLUDE  := -Iinclude/
+#SRC      :=                      \
+#   $(wildcard src/module1/*.cpp) \
+#   $(wildcard src/module2/*.cpp) \
+#   $(wildcard src/*.cpp)         \
+#OBJECTS  := $(SRC:%.cpp=$(OBJ_DIR)/%.o)
+#DEPENDENCIES \
+#         := $(OBJECTS:.o=.d)
+#all: build $(APP_DIR)/$(TARGET)
+#$(OBJ_DIR)/%.o: %.cpp
+#	@mkdir -p $(@D)
+#	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -MMD -o $@
+#$(APP_DIR)/$(TARGET): $(OBJECTS)
+#	@mkdir -p $(@D)
+#	$(CXX) $(CXXFLAGS) -o $(APP_DIR)/$(TARGET) $^ $(LDFLAGS)
+#-include $(DEPENDENCIES)
+#.PHONY: all build clean debug release info
+#build:
+#	@mkdir -p $(APP_DIR)
+#	@mkdir -p $(OBJ_DIR)
+#debug: CXXFLAGS += -DDEBUG -g
+#debug: all
+#release: CXXFLAGS += -O2
+#release: all
+#clean:
+#	-@rm -rvf $(OBJ_DIR)/*
+#	-@rm -rvf $(APP_DIR)/*
+#info:
+#	@echo "[*] Application dir: ${APP_DIR}     "
+#	@echo "[*] Object dir:      ${OBJ_DIR}     "
+#	@echo "[*] Sources:         ${SRC}         "
+#	@echo "[*] Objects:         ${OBJECTS}     "
+#	@echo "[*] Dependencies:    ${DEPENDENCIES}"
