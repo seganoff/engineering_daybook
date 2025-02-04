@@ -2,7 +2,9 @@
 #include <stdint.h>
 
 #include <stdio.h>//printf
-//#include <vector>
+#include <cstdlib>//malloc
+#include <vector>
+#include <cassert>
 //#include <locale.h>
 //uint32_t crc32_table[256];
 
@@ -61,9 +63,53 @@ data_len--;
 frame_out[cout]=0x7e;cout++;
 return cout;
 }
+//void appendRawByte(uint8_t byte, std::vector<uint8_t> &dest)
+//{
+//	if (byte)
+//}
+void appendCookedByte(uint8_t byte, std::vector<uint8_t>& dest)
+{if (byte == 0x7e||byte== 0x7d){ dest.push_back(0x7d); byte ^= 0x20; }
+dest.push_back(byte);
+}
+int encode_frame(const uint8_t * data, uint32_t data_len, std::vector<uint8_t>& dest)
+{uint8_t byte; uint32_t crc32;
+	dest.push_back(0x7e);
+	while(data_len--)
+	{byte = *data++;appendCookedByte(byte,dest);
+	}
+	//append escaped crc32
+	dest.push_back(0x7e);
+	return dest.size();
+}
+void decode_frame(uint8_t * source, uint32_t source_len, std::vector<uint8_t> &dest)
+{
+	uint8_t byte = *source++;source_len--;
+	uint8_t escaped {0};
+	assert(byte==0x7e);
+  while(source_len--)
+	{
+		byte = *source++;
+		switch (byte)
+		{
+			case 0x7e:{assert(source_len==0);break;}
+			case 0x7d:{escaped = 1;break;}
+			default: 
+			{
+				if(escaped){byte ^= 0x20;}
+				dest.push_back(byte);
+
+				break;
+			}
+		}
+
+	}//while loop
+}
+
+typedef struct _Buff {uint8_t *pBuf;uint32_t len;} Buff;
 
 
 int main(){
+//Buff * b0 = (Buff*) malloc( 10 *  sizeof(Buff)  );
 //uint32_t _table[256];
 //char test_str[]="123456789";
 //uint8_t test_str[]="123456789";
@@ -77,13 +123,22 @@ int main(){
 //const uint8_t data1[] = {
 //      0x7e, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
 //      22,   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 0x7e,};
-//std::vector<uint8_t> data0 = {1,2,3,4,5};
+std::vector<uint8_t> datav = {1,2,3,4,5};
 uint8_t data0[] = {'a','b','c','d','e','f'}; 
 uint8_t out[8];
+std::vector<uint8_t> encv;//outv.reserve(3);
+uint32_t enc0=encode_frame(data0, 6, encv);
+for(int n: encv) printf("0x%x ",n); printf("\u000a dest.size: %x \u000a", enc0);
+std::vector<uint8_t> decv;
+decode_frame(encv.data(), encv.size(),decv);
+for(int n: decv) printf("0x%x ",n); printf("\u000a decv.size: %lx \u000a", decv.size());
+//b0[0].pBuf = data0;b0[0]->len = 6;
 //std::vector<uint8_t> out;out.reserve(9);out.resize(9);
 //int frame_length = encode_frame(data0.data(),5,out.data());
-int frame_length = encode_frame(data0,6,out);
-printf("%s\n",out);
+  //int frame_length = encode_frame(data0,6,out);
+  //printf("%s\n",out);
+uint32_t _delimit = 0xccddeeff;
+printf("%x into bytes: %x %x %x %x \u000a",_delimit,(_delimit&0xff000000) >> 24, (_delimit&0x00ff0000) >> 16, (_delimit&0x0000ff00) >>8, (_delimit&0x000000ff)>>0);
 //for(int n: out) printf("0x%x ",n); printf("\u000a");
 return 0;
 }
