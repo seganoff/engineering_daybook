@@ -44,6 +44,9 @@ uint32_t crc32_fast(const /*char*/ uint8_t *s,size_t n, const uint32_t *table) {
 	}
 	return ~crc;}
 //----------------------------------------------------------------
+void appendCookedByte(uint8_t byte, uint8_t *dest,int &position)
+{if ((byte == 0x7d) || (byte == 0x7e)){dest[position]=0x7d;position++;byte^=0x20;}
+dest[position]=byte;position++;}
 int encode_frame(const uint8_t *data, uint8_t data_len/*,uint8_t seqNr*/,uint8_t *frame_out) {
 uint8_t byte;//data
 int cout = 0;//deque or vector
@@ -51,17 +54,14 @@ frame_out[cout]=0x7e;cout++;//boundry octet
 while (data_len) {
 byte = *data++;
 //fcs = _crc_ccitt_update(fcs, data);
-if ((byte == 0x7d) || (byte == 0x7e)) { frame_out[cout]=0x7d;cout++;byte^=0x20;}
-frame_out[cout]=byte;cout++;
+//if ((byte == 0x7d) || (byte == 0x7e)) { frame_out[cout]=0x7d;cout++;byte^=0x20;}
+//frame_out[cout]=byte;cout++;
+appendCookedByte(byte,frame_out,cout);
 data_len--;
 }//while
-frame_out[cout]=0x7e;cout++;
+frame_out[cout]=0x7e;cout++;//boundry octet
 return cout;
 }
-//void appendRawByte(uint8_t byte, std::vector<uint8_t> &dest)
-//{
-//	if (byte)
-//}
 void appendCookedByte(uint8_t byte, std::vector<uint8_t>& dest)
 {if (byte == 0x7e||byte== 0x7d){ dest.push_back(0x7d); byte ^= 0x20; }
 dest.push_back(byte);
@@ -78,54 +78,38 @@ int encode_frame(const uint8_t * data, uint32_t data_len, std::vector<uint8_t>& 
 }
 void decode_frame(uint8_t * source, uint32_t source_len, std::vector<uint8_t> &dest)
 {
-	uint8_t byte = *source++;source_len--;
-	uint8_t escaped {0};
-	assert(byte==0x7e);
-  while(source_len--)
-	{
-		byte = *source++;
-		switch (byte)
-		{
-			case 0x7e:{assert(source_len==0);break;}
-			case 0x7d:{escaped = 1;break;}
-			default: 
-			{
-				if(escaped){byte ^= 0x20;escaped = 0;}
-				dest.push_back(byte);
-
-				break;
-			}
-		}
-
-	}//while loop
+uint8_t byte = *source++;source_len--;
+uint8_t escaped {0};
+assert(byte==0x7e);
+while(source_len--)
+{
+byte = *source++;
+switch (byte)
+{
+case 0x7e:{assert(source_len==0);break;}
+case 0x7d:{escaped = 1;break;}
+default: {if(escaped){byte ^= 0x20;escaped = 0;}dest.push_back(byte);break;}
+}//switch
+}//while loop
 }
 
 typedef struct _Buff {uint8_t *pBuf;uint32_t len;} Buff;
 
 
 int main(){
-//gcc's printf("\u20ac\U0001F333 %lx /*\u000a*/ \x0a",(size_t)256);//
 //Buff * b0 = (Buff*) malloc( 10 *  sizeof(Buff)  );
 //uint32_t _table[256];
-//char test_str[]="123456789";
-//uint8_t test_str[]="123456789";
-
 //build_crc32_table(_table);
 //printf ("tableLookUP 123456789: %x\n",crc32_fast(test_str,sizeof(test_str)-1,_table) );
 //printf ("tableLess   123456789: %x\n",crc32(test_str,sizeof(test_str)-1) );
-//printf("0%x",_table[1]);/*;printf("\u000a");*/printf("\n");
-//printf("%x %x %x\n",_table[0],_table[1], _table[2]);
-//printf("%x\n",sizeof(test_str));
-//const uint8_t data1[] = {
-//      0x7e, 1,  2,  3,  4,  5,  6,  7,  8,  9,  10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21,
-//      22,   23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 0x7e,};
 std::vector<uint8_t> datav = {1,2,3,4,5};
 uint8_t data0[] = {'a','b','c','~','e','f'}; 
 std::vector<uint8_t> original (data0,data0 + sizeof(data0)/sizeof(uint8_t));
-//uint8_t out[8];
+uint8_t out[20];
 std::vector<uint8_t> encv;//outv.reserve(3);
 uint32_t enc0=encode_frame(data0, 6, encv);
-for(int n: encv) printf("0x%x ",n); printf("\u000a encoded; dest.size: %x \u000a", enc0);
+uint32_t enc1=encode_frame(data0, 6, out);
+for(int n: out/*encv*/) printf("0x%x ",n); printf("\u000a encoded; dest.size: %x \u000a", /*enc0*/enc1);
 std::vector<uint8_t> decv;
 decode_frame(encv.data(), encv.size(),decv);
 for(int n: decv) printf("0x%x ",n); printf("\u000a decoded; decv.size: %lx \u000a", decv.size());
