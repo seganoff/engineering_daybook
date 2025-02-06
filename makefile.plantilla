@@ -88,3 +88,16 @@ clean:
 #	@echo "[*] Sources:         ${SRC}         "
 #	@echo "[*] Objects:         ${OBJECTS}     "
 #	@echo "[*] Dependencies:    ${DEPENDENCIES}"
+#
+#windriver baking & flashing & possibly clobbering
+#debugger:
+#MACHINE=<machineType> ./bitbake gdb-cross-arm # bitbake <recipename> -c cleanall
+#clobber:
+#rm -rf cache/ temp_libc/ bitbake-cookerdaemon.log ../sstate-cache/
+#it will transfer only fromwithin 'deploy/images' folder & not from bitbake top build folder
+#flash:
+#tftp -4 -l -v -m binary 192.168.0.118 -c put <bitbaked>.sfw
+#print-VAR helper macro
+#print-%:
+#@echo $*=$($*)
+#.PHONY: flash
