@@ -1,0 +1,43 @@
+#                       docker pull asciidoctor/docker-asciidoctor
+# docker run --rm -it -v <X>:/<X> <idof this /\ image> bash
+# $ autogen.rb <ARGV[0]= file you want to watch hitting CRTL S>  || ESC :w
+#eg. $ ruby autogen.rb /docs/<>/doku/10_zusammenfassung.adoc
+# open genrated pdf in side pane & have a live generated pdf (autoreloaded by default by vscode)
+basic_args = '-r asciidoctor-diagram -r ./_template/glob-include-processor/glob-include-processor -b pdf -a pdf-theme=./_template/basic_template/basic-theme.yml'
+generatedPdf = 'exampl0.pdf'
+#mainTempl = './_template/uap.adoc'
+mainTempl = './_template/doku.adoc'
+
+epoch0 = `stat -c %Z #{ARGV[0]}` #set for watching specific file change
+
+while true do
+  epoch1 = `stat -c %Z #{ARGV[0]}`
+
+  #`asciidoctor-pdf -o ex0.pdf #{ARGV[0]}` unless epoch0 == epoch1
+  #`asciidoctor-pdf -r asciidoctor-diagram -r ./_template/glob-include-processor/glob-include-processor -b pdf -a pdf-theme=./_template/basic_template/basic-theme.yml -a ref-docs -a accr-abbr -o ./ex0.pdf ./_template/doku.adoc --trace` unless epoch0 == epoch1
+  `asciidoctor-pdf #{basic_args} -a ref-docs -a accr-abbr -o #{generatedPdf} #{mainTempl}` unless epoch0 == epoch1
+  #print( "\u{1f321} #{ARGV[0]} epoch0 #{epoch0} epoch1 #{epoch1}")
+  epoch0 = epoch1 unless epoch0 == epoch1
+end
+# https://docs.asciidoctor.org/asciidoctor.js/latest/cli/options/
+# ADOC_BASIC_ARGS: 
+# ---------command agrs-------------
+#   long                             short
+#--require LIBRARY                  -r asciidoctor-diagram
+# -r ./_template/glob-include-processor/glob-include-processor 
+#--backend BACKEND pdf epub3 etc    -b pdf
+#--attribute name[=val]             -a pdf-theme=./_template/basic_template/basic-theme.yml 
+#--timings                          -t
+
+# run on  ./_template/uap.adoc uap
+# run on ./_template/doku.adoc finalDoc
+# asciidoctor-pdf ${{ env.ADOC_BASIC_ARGS }} -a ref-docs -a accr-abbr -o ${{ env.file-name }} ./_template/uap.adoc
+#asciidoctor-pdf -r asciidoctor-diagram -r glob-include-processor/glob-include-processor -b pdf -a pdf-theme=pdf/basic-theme.yml -t <some>_quick_start_guide.adoc
+#gem install asciidoctor-include-ext
+#asciidoctor-pdf -r asciidoctor-diagram -r asciidoctor-include-ext -b pdf -a pdf-theme=pdf/basic-theme.yml -t <some>_quick_start_guide.adoc
+#sudo docker run --rm -it -v ./:/<dir> bf463 bash
+#cd /pathTo/<some>_quick_start_guide
+#asciidoctor/docker-asciidoctor                                   latest         bf463b5ad012
+#asciidoctor-pdf -r asciidoctor-diagram -b pdf -a pdf-theme=pdf/basic-theme.yml -t <some>_quick_start_guide.adoc
+#src/3_ini_file.adoc
+#asciidoxy -r asciidoctor-diagram -b pdf -t Doxyfile.xml

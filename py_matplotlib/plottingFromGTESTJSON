@@ -1,0 +1,156 @@
+import json
+import sys
+import copy
+import random
+import matplotlib.pyplot as plt
+import numpy as np
+
+
+
+plotDataDict = {}
+testNameDict = {}
+parsed = {}
+
+
+#parse from files with keys as filename without .json
+for file in range(1, len(sys.argv)):
+  keyname = sys.argv[file].split('.json')[0]
+  parsed[keyname]=(json.load(open(sys.argv[file],'r')))
+  plotDataDict[keyname]=[]
+  testNameDict[keyname]=[]
+  
+assert(parsed.keys() == plotDataDict.keys() == testNameDict.keys())
+
+#construct
+for key, val in parsed.items():
+  for i, suites in enumerate(val['testsuites']):
+    for k, test in enumerate(suites['testsuite']):
+      data = copy.deepcopy(test)
+      rand = random.choice(list(parsed.keys()))
+      #testNameDict[key].append(data['name']+data['classname'].split('Node1_')[-1])
+      testNameDict[key].append(data['name'])
+      #sanity check on names
+      #print(key+" "+rand+" "+parsed[rand]['testsuites'][i]['testsuite'][k]['name'])
+      assert(data['name'] == parsed[rand]['testsuites'][i]['testsuite'][k]['name'])
+      plotDataDict[key].append(int(float(data['time'][:-1])*1000.0))
+
+#breakpoint()
+
+#=============plot part===================
+x = np.arange(len(testNameDict[rand]))  # the label locations
+width = 0.35  # the width of the bars
+multiplier = 0
+
+fig, ax = plt.subplots(layout='constrained')
+plt.setp(ax.get_xticklabels(), rotation=45, ha="right",rotation_mode="anchor")
+
+for attribute, measurement in plotDataDict.items():
+    offset = width * multiplier
+    rects = ax.bar(x + offset, measurement, width, label=attribute)
+    ax.bar_label(rects, padding=3)
+    multiplier += 1
+
+# Add some text for labels, title and custom x-axis tick labels, etc.
+ax.set_ylabel('time (ms)')
+ax.set_title('chart')
+ax.set_xticks(x + width, testNameDict[rand])
+ax.legend(loc='upper left')
+#ax.set_ylim(0, 250)
+
+plt.show()
+
+#---------ploter.py /\----------
+#-------script02.py \/--------
+import json
+#import pdb
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import numpy as np
+
+reg = json.load(open('resultsReg.json','r'))
+reuse = json.load(open('resultsReuse.json','r'))
+
+combined = [] # combined json from two arrib
+names = [] #testnames
+
+plotData = {'reg':[],'reuse':[]}#'delta':[]}
+delta = {'delta':[]}
+
+
+#=====construct combined list=========
+for i in reg['testsuites']:
+  for x in i['testsuite']:
+    combined.append(x)
+    #testDict['reg'].append(x['time'])
+
+i=0
+for item in (reuse['testsuites']):
+  for x in (item['testsuite']):
+    assert(x['name'] == combined[i]['name'])
+    combined[i]['timeOther'] = x['time']
+    #testDict['reuse'].append(x['time'])
+    i=i+1
+
+#fix time to integer in ms
+for i in combined:
+  i['time'] = int(float(i['time'][:-1])*1000.0)
+  plotData['reg'].append(i['time'])
+  i['timeOther'] = int(float(i['timeOther'][:-1])*1000.0)
+  plotData['reuse'].append(i['timeOther'])
+  classname = (i['classname'].split('Node1_')[-1])
+  names.append( (i['name']+classname) )
+  delta['delta'].append( (i['time']-i['timeOther']) )
+
+assert(len(names) == len(plotData['reg']) == len(plotData['reuse']) == len(combined))
+
+#==========combined end====================
+#breakpoint()
+
+#testnames = {'t1':[],'t2':[]}
+#index = 0
+#for i in out1:
+#  testnames[index]=(i['time'],i['timeOther'])
+#  testnames['t1'].append(i['time'])
+#  testnames['t2'].append(i['timeOther'])
+#  index +=1
+
+x = np.arange(len(names))
+width = 0.35
+multiplier = 0
+
+#breakpoint()
+
+fig, ax = plt.subplots(layout='constrained')
+
+y_pos = np.arange(len(names))
+
+hbars = ax.barh(y_pos, width=delta['delta'])
+ax.bar_label(hbars, labels=delta['delta'])
+ax.set_yticks(y_pos, labels=names)
+ax.invert_yaxis()
+ax.set_xlabel('ms')
+ax.set_title('chart')
+ax.set_xlim(left=600)
+
+
+# plt.setp(ax.get_xticklabels(), rotation=45, ha="right",
+#          rotation_mode="anchor")
+#
+# for attribute, measurement in plotData.items():
+#     offset = width * multiplier
+#     rects = ax.bar(x + offset, measurement, width, label=attribute)
+#     ax.bar_label(rects, padding=3)
+#     multiplier += 1
+#
+# ax.set_ylabel('ms')
+# ax.set_title('test/0Fixture')
+# ax.set_xticks(x + width, names)
+# #ax.legend(['Regular','Reuse','time Delta'],loc='lower left')
+# ax.legend(loc='lower left')
+# #ax.set_ylim(0, 6000000)
+
+plt.show()
+
+
+#input()
+

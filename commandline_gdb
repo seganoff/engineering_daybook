@@ -1,3 +1,13 @@
+alias 146connect='ssh -X -i ~/id_fire -p 2222 u262d@192.168.178.146'; ll='ls -hal'
+scp -i ~/id_fire -P 2222 ./some.zip  u262d@192.168.178.146:/<destPATH>/
+netsh interface portproxy add v4tov4 listenaddress=0.0.0.0 listenport=2222 connectport=2222 connectaddress={wsl<ipconfig /all}
+netsh interface portproxy show v4tov4
+#seems optional cuz after pinche win update portproxy was gone & assumably fw rule, only add portproxy enabled access again
+#netsh advfirewall firewall add rule name="" dir=in action=allow protocol=TCP localport=2222
+#shell:startup c/users/X/appdata/roaming/...<idiotic win path>.../Startup/wsl_on_boot.bat (append 'wsl')
+# ~/.ssh/authorized_keys; /etc/ssh/sshd_config
+
+#------------batch + ps1 related-------------
 file.bat
 @echo off
 REM some comment
@@ -15,6 +25,17 @@ $final_filter = "$incl-$excl"
 pathToYour\gdb.exe --args `
 prog.exe.debug args --gtest_filter=$filter
 
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
+#New-Item -ItemType Dir -Path "nonempty\extradir"
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf"
+#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\" -Recurse -Force
+New-Item -ItemType Dir -Path "nonempty\extr\adir"
+Copy-Item -Path "xmcrt.pdf" -Destination ".\nonempty\extr\adir\1.pdf"
+
+#-------end batch + ps1 related-------------
+
+#--------gdb related ----------------------
 # ip addr DontCare could be empty just port :2345
 gdbserver --attach 1.1.1.1:2345 $(pidof <prog>)
 bitbake_build/makedebugfs.sh && \
@@ -23,17 +44,18 @@ pathTo/arm-wrs-linux-gnueabi-gdb -ex "set sysroot ./" -ex "set substitute-path /
 
 gdb$ set solib-search-path /path
 
-#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
+gdb$ set max-value-size unlimited 
+gdb$ dump value /<pathWhereToPut>.dump THA_TRACE_BUFFER
 
-#New-Item -ItemType Dir -Path "nonempty\extradir"
-#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
 
-#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf"
-#Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\" -Recurse -Force
+#--------end gdb related ----------------------
 
-New-Item -ItemType Dir -Path "nonempty\extr\adir"
-Copy-Item -Path "xmcrt.pdf" -Destination ".\nonempty\extr\adir\1.pdf"
 
+
+
+
+
+#--------- commandline moving--------------
 hXXps://github.com/fliptheweb/bash-shortcuts-cheat-sheet
 c + Anf
 c + End + u delete line to Anf

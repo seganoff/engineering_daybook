@@ -1,0 +1,44 @@
+# old gtest version could not gen json, only xml, & dumb excell freaked me out graphing from xml
+# so least effort was to convert into comma separated values & let excell graph (out of box:)
+require 'nokogiri'
+parsed=Nokogiri::XML(File.open('64bitfull.xml','r').read());
+all=parsed.xpath("//testsuites//testsuite//testcase");
+unsorted=[];
+merged=[];
+all.each {|testcase| tmp=[]; testcase.attribute_nodes.each{|attr| tmp.append(   attr.deconstruct_keys([:name,:value])   ) }; unsorted.append(tmp); }
+unsorted.each{|listOfHashes| 
+  tmpHash={}; listOfHashes.each {|innerHash| raise if innerHash[:namespace]; tmpHash.store(innerHash[:name], innerHash[:value]) }; 
+  merged.append(tmpHash);  
+}
+testgroupnames=[];
+merged.each{|i| testgroupnames.append(i["classname"]) }
+testgroupnames.uniq!;
+testgroupHash=testgroupnames.to_h{|i| [ i, [] ] };
+outputList=[];
+merged.each{|item| 
+  tmp=item.values_at("classname", "name", "time");
+  outputList.append(tmp);
+  h={};
+  h.store("testname",tmp[1]);
+  h.store("time",tmp[2]);
+  testgroupHash[tmp[0]].append(h);
+}
+csv="Suite,Test,32+64bit\n";
+#outputList.each{|i|csv<<i.join(",")<<"\n"}
+testgroupHash.keys.each{|s| csv.concat(s);
+  testgroupHash[s].each{|tn| testname=tn["testname"]; 
+    #time=tn["time"]
+    #str=",#{testname},#{time}\n";
+    #str=",#{testname},#{time}\n";
+    #str=",#{testname},#{time}\n";
+    str=",#{testname},OK\n";
+    csv.concat(str) unless testname.include?("DISABLED")
+  }
+  csv.concat("\n");
+}
+File.open('64.csv','w').write(csv);
+#jsonString=JSON.generate(testgroupHash);
+#File.open('32.json','w').write(jsonString)
+#outputHash={};
+#pp testgroupHash;
+#binding.irb;
