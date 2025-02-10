@@ -11,7 +11,8 @@ Doc Writer your_email@no.no
 // Uncomment next line to set page size (default is A4)
 //:pdf-page-size: Letter
 // $ asciidoctor-pdf -o tst.pdf thisFile.adoc
-
+// search utf for combining or modifier, kindof cannot take plane1 utf
+// ruby -e 'pp "th\u{035c}\u{0361}is \u{1f333}"'
 {empty} +
 {empty} +
 {empty} +
@@ -19,7 +20,7 @@ Doc Writer your_email@no.no
 name0 +
 name1 +
 str. 0x7 +
-zip Town +
+zip T&#x035c;&#x0361;own &#x1f333; 🌳 +
 
 {empty} +
 {empty} +
