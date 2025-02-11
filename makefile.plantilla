@@ -94,9 +94,12 @@ clean:
 #MACHINE=<machineType> ./bitbake gdb-cross-arm # bitbake <recipename> -c cleanall
 #clobber:
 #rm -rf cache/ temp_libc/ bitbake-cookerdaemon.log ../sstate-cache/
-#it will transfer only fromwithin 'deploy/images' folder & not from bitbake top build folder
+#tftp kindof see only pwd, so cp bitbakedFile into pwd first
+#FIRMWAREFILE:=$(realpath /pathToThaFile)
 #flash:
-#tftp -4 -l -v -m binary 192.168.0.118 -c put <bitbaked>.sfw
+#@cp $(FIRMWAREFILE) ./$(FNAME)
+#@tftp -4 -l -v -m binary 192.168.0.118 -c put $(FANME)
+#@rm ./$(FNAME)
 #print-VAR helper macro
 #print-%:
 #@echo $*=$($*)

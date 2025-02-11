@@ -123,6 +123,11 @@ for(int n: original) printf("0x%x ",n); printf("\u000a original data0 \u000a");
 //printf("%x into bytes: %x %x %x %x \u000a",_delimit,(_delimit&0xff000000) >> 24, (_delimit&0x00ff0000) >> 16, (_delimit&0x0000ff00) >>8, (_delimit&0x000000ff)>>0);
 //printf("%x into bytes: %x %x %x %x \u000a",_delimit,_delimit>>24&0xff , _delimit>>16&0xff, _delimit>>8&0xff, _delimit>>0&0xff);
 
+//uint8_t t0[]={'c','0','n','t','r','0','l','l','e','r'};
+uint8_t t0[]="controller";
+for(int n: t0) printf("0x%x ",n); //printf("\u000a size: %lx \u000a", t0.size());
+printf("\u000a");
+
 return 0;
 }
 //g++ -g -o app  main.c && ./app && rm ./app
