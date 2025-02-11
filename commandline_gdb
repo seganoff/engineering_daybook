@@ -7,6 +7,14 @@ netsh interface portproxy show v4tov4
 #shell:startup c/users/X/appdata/roaming/...<idiotic win path>.../Startup/wsl_on_boot.bat (append 'wsl')
 # ~/.ssh/authorized_keys; /etc/ssh/sshd_config
 
+prevent_doxygen define NOT in PREDEFINED (+)= ||(@include = Doxyfile_Predefined)
+/// @cond PREVENT_DOXYGEN
+FANCY_FILE_SYSTEM_EXTENSION(FANCY_MOD_ID)
+/// @endcond
+#just show DoxyConfigVars|  doxygen.exe Doxyfile
+$ sed '/^#/d' Doxyfile | sed '/^[\r\n]/d'
+
+
 #------------batch + ps1 related-------------
 file.bat
 @echo off

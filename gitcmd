@@ -5,3 +5,5 @@ $ ssh-add /pathTo/key.priv [&& ssh-add -L]#optional
 $ git clone git@gh.com:<user>/<repo>.git #or clone wif http & edit config . url
 $ git config core.sshCommand "ssh -i /pathTo/key.priv" #chmod 600
 # url.insteadOf config for global configs
+#dump all containig missingTXT, eg. when unresolvable reference to `REF' for \ref command
+$ git log -c -S'missingtxt' -- </FilePath>
