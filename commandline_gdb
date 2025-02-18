@@ -30,8 +30,10 @@ $final_filter = "$incl-$excl"
 <#$final_filter = "$tempinclude-$excl"#>
 --gtest_filter=$final_filter #--gtest_output=xml:res.xml
 #in case mingw not in PATH # ` escape char for multiline command
+$exe="D:\pathToYour\prog.exe" # optional, just run in gdb
+$exe="D:\pathToYour\prog.exe.debug"
 pathToYour\gdb.exe --args `
-prog.exe.debug args --gtest_filter=$filter
+$exe args --gtest_filter=$filter
 
 #Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
 #New-Item -ItemType Dir -Path "nonempty\extradir"
