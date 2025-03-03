@@ -1,4 +1,5 @@
 #include <string>
+#include <cstring>
 
 static const uint8_t  base64_table[65] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -46,7 +47,8 @@ static const uint8_t B64chars[65] =
 "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 std::string b64encode(const void* data, const size_t len)
 {
-	unsigned char* p = (unsigned char*)data;
+	//unsigned char* p = (unsigned char*)data;
+	uint8_t* p = (uint8_t*)data;
 	size_t d = len % 3;
 	std::string str64(4 * (int(d > 0) + len / 3), '=');
 
@@ -78,7 +80,8 @@ static const uint8_t B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0
 
 std::string b64decode(const void* data, const size_t len)
 {
-    unsigned char* p = (unsigned char*)data;
+//    unsigned char* p = (unsigned char*)data;
+uint8_t* p = (uint8_t*)data;
     int pad = len > 0 && (len % 4 || p[len - 1] == '=');
     const size_t L = ((len + 3) / 4 - pad) * 4;
     std::string str(L / 4 * 3 + pad, '\0');
@@ -106,9 +109,12 @@ std::string b64decode(const void* data, const size_t len)
 
 int main(){
 //uint32_t pktsize{0x28};
+//((n*4/3)+3) & ~3 = encoded size
 //uint8_t pktsize[4] = {0xff,0xff,0xff,0xff/*0x28*/};
-uint8_t pktsize[4] = {0xff,0xff,0xff,0xff};
-std::string s_encoded = b64encode(/*(uint8_t*)&*/pktsize , 4);
+uint8_t k {4};
+uint8_t pktsize[k] ;//= {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
+memset(pktsize,0xff,k);
+std::string s_encoded = b64encode(/*(uint8_t*)&*/pktsize , k);
 uint8_t *enc =(uint8_t*) s_encoded.c_str();
 int l = s_encoded.size();
 
@@ -120,6 +126,10 @@ uint8_t *dec = (uint8_t *) s_decoded.c_str();
 l = s_decoded.size();
 printf("decoded \u000a"); while(l--)printf(" 0x%x",*dec++); printf(" decoded string size: 0x%lx\u000a",s_decoded.size());
 
+uint8_t data_len {0x6};
+//uint8_t bytes {0x8}; 
+uint8_t sendbuff_len { uint8_t (  ((data_len *4/3)+3) & ~3)    };
+printf("\u000a %x \u000a",sendbuff_len);
 //uint32_t l = bufferlen;uint8_t* prb = static_cast<uint8_t*>(buffer);printf("lin recv\u000a"); while(l--){printf(" %x",*prb++);}printf("\u000a");
 return 0;}
 
