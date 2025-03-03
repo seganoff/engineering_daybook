@@ -1,10 +1,10 @@
 #include <string>
 
-static const unsigned char base64_table[65] =
+static const uint8_t  base64_table[65] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
 
 //std::string base64_encode(const unsigned char *src, size_t len)
-std::string b64encode(const uint8_t *src, size_t len)
+std::string _b64encode(const uint8_t *src, size_t len)
 {
 /*unsigned char*/uint8_t *out, *pos;
 const /*unsigned char*/uint8_t *end, *in;
@@ -40,8 +40,35 @@ out = (unsigned char*)&outStr[0];
         *pos++ = '=';
     }
     return outStr;}
+//------------------------------------------------------------------------------
+static const uint8_t B64chars[65] =
+/*(uint8_t*)*/
+"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+std::string b64encode(const void* data, const size_t len)
+{
+	unsigned char* p = (unsigned char*)data;
+	size_t d = len % 3;
+	std::string str64(4 * (int(d > 0) + len / 3), '=');
 
-static const int B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
+	for (size_t i = 0, j = 0; i < len - d; i += 3)
+	{
+		int n = int(p[i]) << 16 | int(p[i + 1]) << 8 | p[i + 2];
+		str64[j++] = B64chars[n >> 18];
+		str64[j++] = B64chars[n >> 12 & 0x3F];
+		str64[j++] = B64chars[n >> 6 & 0x3F];
+		str64[j++] = B64chars[n & 0x3F];
+	}
+	if (d--)    /// padding
+	{
+		int n = d ? int(p[len - 2]) << 8 | p[len - 1] : p[len - 1];
+		str64[str64.size() - 2] = d ? B64chars[(n & 0xF) << 2] : '=';
+		str64[str64.size() - 3] = d ? B64chars[n >> 4 & 0x03F] : B64chars[(n & 3) << 4];
+		str64[str64.size() - 4] = d ? B64chars[n >> 10] : B64chars[n >> 2];
+	}
+	return str64;
+}
+
+static const uint8_t B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0, 62, 63, 62, 62, 63, 52, 53, 54, 55,
 56, 57, 58, 59, 60, 61,  0,  0,  0,  0,  0,  0,  0,  0,  1,  2,  3,  4,  5,  6,
@@ -80,8 +107,8 @@ std::string b64decode(const void* data, const size_t len)
 int main(){
 //uint32_t pktsize{0x28};
 //uint8_t pktsize[4] = {0xff,0xff,0xff,0xff/*0x28*/};
-uint8_t pktsize[6] = {0xff,0xff,0xff,0xff,0xff,0xff};
-std::string s_encoded = b64encode(/*(uint8_t*)&*/pktsize , 6);
+uint8_t pktsize[4] = {0xff,0xff,0xff,0xff};
+std::string s_encoded = b64encode(/*(uint8_t*)&*/pktsize , 4);
 uint8_t *enc =(uint8_t*) s_encoded.c_str();
 int l = s_encoded.size();
 
