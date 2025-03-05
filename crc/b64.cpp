@@ -1,5 +1,6 @@
 #include <string>
 #include <cstring>
+#define LENB64(n)    ( (4*n/3+3)&~3 )
 
 static const uint8_t  base64_table[65] =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -69,6 +70,8 @@ std::string b64encode(const void* data, const size_t len)
 	}
 	return str64;
 }
+std::string b64encode(const void* data, const size_t len, uint8_t* out, uint32_t *out_len)
+{std::string s64 = b64encode(data, len);  if (out!=nullptr) out = (uint8_t*)s64.c_str(); if(out_len!=nullptr) *out_len=s64.size(); return s64;}
 
 static const uint8_t B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -106,30 +109,54 @@ uint8_t* p = (uint8_t*)data;
     }
     return str;
 }
+std::string b64decode(const void* data, const size_t len, uint8_t* out, uint32_t *out_len)
+{std::string s64 = b64decode(data, len);  if (out!=nullptr) out = (uint8_t*)s64.c_str(); if(out_len!=nullptr) *out_len=s64.size(); return s64;}
 
 int main(){
 //uint32_t pktsize{0x28};
 //((n*4/3)+3) & ~3 = encoded size
 //uint8_t pktsize[4] = {0xff,0xff,0xff,0xff/*0x28*/};
-uint8_t k {4};
-uint8_t pktsize[k] ;//= {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
-memset(pktsize,0xff,k);
-std::string s_encoded = b64encode(/*(uint8_t*)&*/pktsize , k);
+//uint8_t k {4};
+//uint8_t pktsize[k] ;//= {0xff,0xff,0xff,0xff,0xff,0xff,0xff,0xff};
+//memset(pktsize,0xff,k);
+
+uint8_t* pkt= (uint8_t*)"thePacket";
+std::string s_encoded = b64encode(/*(uint8_t*)&*/pkt , 9);
 uint8_t *enc =(uint8_t*) s_encoded.c_str();
 int l = s_encoded.size();
 
-//printf("encoding %x \u000a",*(pktsize+3) );
-printf("encoding \u000a"); while(l--) printf(" 0x%x ", *enc++); printf("encoded string size: 0x%lx\u000a",s_encoded.size());
-enc = (uint8_t*) s_encoded.c_str();
-std::string s_decoded =  b64decode( enc /*s_encoded.c_str()*/ ,   s_encoded.size() );
-uint8_t *dec = (uint8_t *) s_decoded.c_str();
-l = s_decoded.size();
-printf("decoded \u000a"); while(l--)printf(" 0x%x",*dec++); printf(" decoded string size: 0x%lx\u000a",s_decoded.size());
+printf("encoded %s \u000a",s_encoded.c_str() );
+printf("charwise \u000a"); while(l--) printf(" 0x%x ", *enc++); printf("encoded string size: 0x%lx\u000a",s_encoded.size());
+//enc = (uint8_t*) s_encoded.c_str();
+uint32_t enc_size = s_encoded.size();
+uint8_t out_data[LENB64(sizeof(uint32_t))]; memset(out_data,0x00,LENB64(sizeof(uint32_t)));
+uint8_t encsize64buff[(sizeof(uint32_t))];//memcpy( (void*)encsize64buff, (void*)&enc_size , sizeof(uint32_t) );
 
-uint8_t data_len {0x6};
+//encsize64buff[0] = (enc_size >> 24) & 0xff;
+//encsize64buff[1] = (enc_size >> 16) & 0xff;
+//encsize64buff[2] = (enc_size >> 8)  & 0xff;
+//encsize64buff[3] = (enc_size )      & 0xff;
+
+*(uint32_t*)&encsize64buff = enc_size;
+//sprintf( (char*)encsize64buff, "%d", enc_size );
+std::string encsizeb64 = b64encode (  encsize64buff  ,  sizeof(uint32_t)  ,  out_data   , nullptr    )  ;
+printf ( "b64 enc_size %s \u000a", encsizeb64.c_str() ) ;
+std::string decsizeb64 = b64decode(encsizeb64.c_str(), encsizeb64.size());
+printf (  "decoded size %s len %lx \u000a" , decsizeb64.c_str() , decsizeb64.size() );
+
+uint32_t decsizeval =  *(uint32_t*)&decsizeb64;
+uint64_t decsize16 = std::strtoul(decsizeb64.c_str(),nullptr,16);
+uint64_t decsize10 = std::strtoul(decsizeb64.c_str(),nullptr,10);
+
+
+//std::string s_decoded =  b64decode( enc /*s_encoded.c_str()*/ ,   s_encoded.size() );
+//uint8_t *dec = (uint8_t *) s_decoded.c_str();
+//l = s_decoded.size();
+//printf("decoded \u000a"); while(l--)printf(" 0x%x",*dec++); printf(" decoded string size: 0x%lx\u000a",s_decoded.size());
+//uint8_t data_len {0x6};
 //uint8_t bytes {0x8}; 
-uint8_t sendbuff_len { uint8_t (  ((data_len *4/3)+3) & ~3)    };
-printf("\u000a %x \u000a",sendbuff_len);
+//uint8_t sendbuff_len { uint8_t (  ((data_len *4/3)+3) & ~3)    };
+//printf("\u000a %x \u000a",sendbuff_len);
 //uint32_t l = bufferlen;uint8_t* prb = static_cast<uint8_t*>(buffer);printf("lin recv\u000a"); while(l--){printf(" %x",*prb++);}printf("\u000a");
 return 0;}
 
