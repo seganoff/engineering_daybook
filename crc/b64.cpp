@@ -71,7 +71,7 @@ std::string b64encode(const void* data, const size_t len)
 	return str64;
 }
 std::string b64encode(const void* data, const size_t len, uint8_t* out, uint32_t *out_len)
-{std::string s64 = b64encode(data, len);  if (out!=nullptr) out = (uint8_t*)s64.c_str(); if(out_len!=nullptr) *out_len=s64.size(); return s64;}
+{std::string s64 = b64encode(data, len);  if (out!=nullptr) memcpy( (void*)(out) , (void*) (s64.c_str()) ,  s64.size() ); /*out = (uint8_t*)s64.c_str();*/ if(out_len!=nullptr) *out_len=s64.size(); return s64;}
 
 static const uint8_t B64index[256] = { 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
 0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,
@@ -110,7 +110,7 @@ uint8_t* p = (uint8_t*)data;
     return str;
 }
 std::string b64decode(const void* data, const size_t len, uint8_t* out, uint32_t *out_len)
-{std::string s64 = b64decode(data, len);  if (out!=nullptr) out = (uint8_t*)s64.c_str(); if(out_len!=nullptr) *out_len=s64.size(); return s64;}
+{std::string s64 = b64decode(data, len);  if (out!=nullptr) memcpy( (void*)(out) , (void*) (s64.c_str()) ,  s64.size() );  /* out = (uint8_t*)s64.c_str();*/    if(out_len!=nullptr) *out_len=s64.size(); return s64;}
 
 int main(){
 //uint32_t pktsize{0x28};
@@ -137,16 +137,17 @@ uint8_t encsize64buff[(sizeof(uint32_t))];//memcpy( (void*)encsize64buff, (void*
 //encsize64buff[2] = (enc_size >> 8)  & 0xff;
 //encsize64buff[3] = (enc_size )      & 0xff;
 
-*(uint32_t*)&encsize64buff = enc_size;
+*(uint32_t*)&encsize64buff = enc_size;// into memcpy
 //sprintf( (char*)encsize64buff, "%d", enc_size );
 std::string encsizeb64 = b64encode (  encsize64buff  ,  sizeof(uint32_t)  ,  out_data   , nullptr    )  ;
 printf ( "b64 enc_size %s \u000a", encsizeb64.c_str() ) ;
 std::string decsizeb64 = b64decode(encsizeb64.c_str(), encsizeb64.size());
 printf (  "decoded size %s len %lx \u000a" , decsizeb64.c_str() , decsizeb64.size() );
 
-uint32_t decsizeval =  *(uint32_t*)&decsizeb64;
-uint64_t decsize16 = std::strtoul(decsizeb64.c_str(),nullptr,16);
-uint64_t decsize10 = std::strtoul(decsizeb64.c_str(),nullptr,10);
+uint32_t decsizeval {0};memcpy( (void*)&decsizeval , (void*)(decsizeb64.c_str()) , decsizeb64.size() );
+//uint64_t decsize16 = std::strtoul(decsizeb64.c_str(),nullptr,16);
+//uint64_t decsize10 = std::strtoul(decsizeb64.c_str(),nullptr,10);
+printf( " decoded size value:  0x%x \u000a" , decsizeval  );
 
 
 //std::string s_decoded =  b64decode( enc /*s_encoded.c_str()*/ ,   s_encoded.size() );
