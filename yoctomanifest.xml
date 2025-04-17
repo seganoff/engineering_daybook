@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+
+<!--
+git://git.yoctoproject.org/poky
+https://git.yoctoproject.org/poky
+https://git.yoctoproject.org/git/poky
+refs/heads/
+git show 2a5a0339d5bd28d6f6aedaf02a6aaa9b73a248e4
+18-11-22
+27-08-24
+git init in .localmanifest + .xml file
+repo init -u file:///home/u262d/bootlin/yocto/.localmanifest -b master -m yoctomanifest.xml
+https://github.com/dkruces/yocto-labs/blob/master/yocto/meta-bootlinlabs/recipes-extended/ninvaders/ninvaders_0.1.1.bb
+-->
+  <remote name="yct" fetch="https://git.yoctoproject.org/git" />
+
+  <project path="poky" remote="yct" revision="refs/tags/kirkstone-4.0.5" name="poky.git" />
+  <project path="meta-arm" remote="yct" revision="refs/tags/yocto-4.0.1" name="meta-arm.git" />
+  <project path="meta-ti" remote="yct" revision="2a5a0339d5bd28d6f6aedaf02a6aaa9b73a248e4" name="meta-ti.git" />
+</manifest>
