@@ -1,0 +1,36 @@
+rustup target add thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf
+1.4 Installation + 1.4.1
+2.1 qemu
+2.6 exceptions, mv cortex-m-quickstart/xamples/exception.rs cargo-genApp/src/main.rs
+kill -9 $(pidof qemu-system-arm) # does nothing from book
+#![deny(unsafe_code)]
+#![no_main]
+#![no_std]
+
+use panic_halt as _;
+
+use cortex_m::peripheral::syst::SystClkSource;
+use cortex_m::Peripherals;
+use cortex_m_rt::{entry, exception};
+use cortex_m_semihosting::{debug,hprint};
+
+#[entry]
+fn main() -> ! {
+    let p = Peripherals::take().unwrap();
+    let mut syst = p.SYST;
+
+    // configures the system timer to trigger a SysTick exception every second
+    syst.set_clock_source(SystClkSource::Core);
+    syst.set_reload(/*12*/8_000_000); // period = 1s
+    syst.enable_counter();
+    syst.enable_interrupt();
+
+    loop {}
+}
+
+#[exception]
+fn SysTick() {
+static mut COUNT: u32 = 0;
+*COUNT+=1;hprint!(".{}",*COUNT);if *COUNT==9{hprint!("\u{0a}");debug::exit(debug::EXIT_SUCCESS);}
+}
+
