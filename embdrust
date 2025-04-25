@@ -1,8 +1,11 @@
+apt install build-essential libssl-dev pkg-config qemu-system-arm openocd gdb-multiarch
 rustup target add thumbv6m-none-eabi thumbv7m-none-eabi thumbv7em-none-eabi thumbv7em-none-eabihf
-1.4 Installation + 1.4.1
-2.1 qemu
-2.6 exceptions, mv cortex-m-quickstart/xamples/exception.rs cargo-genApp/src/main.rs
-kill -9 $(pidof qemu-system-arm) # does nothing from book
+rustup component add llvm-tools
+cargo install cargo-binutils cargo-generate
+
+cargo generate --git https://github.com/rust-embedded/cortex-m-quickstart
+2.6 exceptions
+kill -9 $(pidof qemu-system-arm) # from book, qemu is just frozen > change main.rs to: (examples/exception.rs)
 #![deny(unsafe_code)]
 #![no_main]
 #![no_std]
