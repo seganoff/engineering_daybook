@@ -14,6 +14,8 @@ FANCY_FILE_SYSTEM_EXTENSION(FANCY_MOD_ID)
 #just show DoxyConfigVars|  doxygen.exe Doxyfile
 $ sed '/^#/d' Doxyfile | sed '/^[\r\n]/d'
 
+#find wif -exec #use case: arm's dspBook.7z  Lab1 same header in every subfolder?
+$ find ./ -name hal_config.h -exec diff -bur ./hal_config.h {} \;
 
 #------------batch + ps1 related-------------
 file.bat
@@ -24,7 +26,7 @@ start "windowName" call prog.exe someArg
 
 # lin filter_exclude_ary=("" newlineSeparated "") filter_include=$(IFS=: ; echo "${filter_include_ary[*]}") filter="${filter_include}-${filter_exclude}"
 #ps1
-$inclAry=@( "val1","val2")
+$inclAry=@( "val1","val2",$null) <#just place a null0R element @ tha end of ps1Ary & forgett about trailig comma #>
 $incl = [system.String]::Join(":", $inclAry)
 $final_filter = "$incl-$excl"
 <#$final_filter = "$tempinclude-$excl"#>
@@ -40,8 +42,10 @@ $exe args --gtest_filter=$filter
 #Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf" -Recurse
 #Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\xmcrt.pdf"
 #Copy-Item -Path "xmcrt.pdf" -Destination "nonempty\extradir\" -Recurse -Force
+#copyitem will (silently)fail to create missing Folders (unlike mkdir's -P option)
 New-Item -ItemType Dir -Path "nonempty\extr\adir"
 Copy-Item -Path "xmcrt.pdf" -Destination ".\nonempty\extr\adir\1.pdf"
+#but copyitem will happily create folders if source is a folder itself. crazy...
 
 #-------end batch + ps1 related-------------
 
