@@ -6,6 +6,7 @@ C:\Users\<pinchewin>\AppData\Roaming\Code\User\keybindings.json #disable built-i
 global /\ for avoiding folderwise (rm -rf ./.vscode) settings
 
 $HOME/.config/Code/User/settings.json
+for portable place jsons into $HOME/<unzippedCodeFolder>data/user-data/User
 
 C:\Users\<pinchewin>\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions
 C:\Users\<pinchewin>\AppData\Local\Programs\Microsoft VS Code
