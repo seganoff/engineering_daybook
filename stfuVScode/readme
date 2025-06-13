@@ -4,8 +4,8 @@ settings & keybindings, tha most important ones
 C:\Users\<pinchewin>\AppData\Roaming\Code\User\setting.json
 C:\Users\<pinchewin>\AppData\Roaming\Code\User\keybindings.json #disable built-in shortcuts, these mess up with insert-unicode(ctrl+shift+u) & vim
 global /\ for avoiding folderwise (rm -rf ./.vscode) settings
-TODO: linux equivalent
 
+$HOME/.config/Code/User/settings.json
 
 C:\Users\<pinchewin>\AppData\Local\Programs\Microsoft VS Code\resources\app\extensions
 C:\Users\<pinchewin>\AppData\Local\Programs\Microsoft VS Code
