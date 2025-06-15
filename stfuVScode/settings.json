@@ -207,6 +207,21 @@
 "cmake.configureOnOpen": false,
 "cmake.configureOnEdit": false,
 "C_Cpp.dimInactiveRegions": false,
+// portable on linux additional tranquilizers || $HOME/vscodePortable/data/user-data/User/settings.json
+// missing: every folder EXPANDED in tree view
+"C_Cpp.configurationWarnings": "disabled",
+"accessibility.verbosity.notification": false,
+"zenMode.silentNotifications": false,
+"extensions.ignoreRecommendations": true,
+"workbench.remoteIndicator.showExtensionRecommendations": false,
+"extensions.autoCheckUpdates": false,
+"extensions.experimental.issueQuickAccess": false,
+"telemetry.telemetryLevel": "off",
+"C_Cpp.default.enableConfigurationSquiggles": false,
+"C_Cpp.exclusionPolicy": "checkFilesAndFolders",
+"explorer.fileNesting.enabled": true,
+"git.enabled": false,
+
 
 
 }
