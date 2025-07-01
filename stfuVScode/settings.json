@@ -221,7 +221,10 @@
 "C_Cpp.exclusionPolicy": "checkFilesAndFolders",
 "explorer.fileNesting.enabled": true,
 "git.enabled": false,
-
+"markdown.editor.updateLinksOnPaste.enabled": false,
+"markdown.updateLinksOnFileMove.enableForDirectories": false,
+"update.mode": "none",
 
 
 }
+
