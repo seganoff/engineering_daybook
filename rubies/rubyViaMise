@@ -1,0 +1,8 @@
+apt packages: build-essential rustc libssl-dev libyaml-dev zlib1g-dev libgmp-dev git libmariadb-dev
+mise inst:
+curl https://mise.run | sh
+echo 'eval "$(~/.local/bin/mise activate)"' >> ~/.bashrc && source ~/.bashrc
+
+mise use -g ruby@3
+
+gem packages: faker mysql2(prerequisite: libmariadb-dev & pull mariadb:lts container)
