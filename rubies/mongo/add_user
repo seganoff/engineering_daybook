@@ -1,0 +1,23 @@
+/* create normal user */
+db = db.getSiblingDB('<db_name>');
+
+//const existingUsers = db.getUsers().map(u => u.user);
+  const existingUsers = (db.getUsers()?.users ?? []).map(u => u.user ?? "");
+
+//print(`[INIT] starting existing users: ${existingUsers} DB: ${db}`);
+printjson({
+  event: "init_start",
+  users: existingUsers,
+  db: db.getName()
+});
+
+if (!existingUsers.includes("ruby_app")) {
+  db.createUser({
+    user: "ruby",
+    pwd: "ruby",
+    roles: [
+      { role: "readWrite", db: "db_name" }
+    ]
+  });
+}
+//done

@@ -1,0 +1,27 @@
+require "mongo"
+#require "nokogiri"
+#require "open-uri"
+
+client = Mongo::Client.new(
+  ["127.0.0.1:27017"],
+  database: "<db_naem>",
+  user: "ruby",
+  password: "ruby"
+)
+
+collection = client[:pages]
+
+binding.irb;
+
+#url = "https://example.com"
+#doc = Nokogiri::HTML(URI.open(url))
+
+#data = {
+#  url: url,
+#  title: doc.at_css("title")&.text,
+#  h1: doc.at_css("h1")&.text,
+#  scraped_at: Time.now
+#}
+
+#collection.insert_one(data)
+#puts "saved!"
