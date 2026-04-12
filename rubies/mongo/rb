@@ -4,12 +4,12 @@ require "mongo"
 
 client = Mongo::Client.new(
   ["127.0.0.1:27017"],
-  database: "<db_naem>",
-  user: "ruby",
-  password: "ruby"
+  database: "rubyDB",
+  user: "rubyUser",
+  password: "rubyPassword"
 )
 
-collection = client[:pages]
+#collection = client[:pages]
 
 binding.irb;
 
