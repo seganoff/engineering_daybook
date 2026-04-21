@@ -1,0 +1,7 @@
+#!/bin/bash
+
+if grep -q -i avx /proc/cpuinfo; then
+    echo "Your CPU supports AVX."
+else
+    echo "Your CPU does not support AVX."
+fi

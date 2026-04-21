@@ -1,4 +1,6 @@
 # -d option
+#mng_ver="4.4"
+mng_ver="7"
 docker run --rm  \
   --name mongod_contenedor \
   -p 27017:27017 \
@@ -6,7 +8,8 @@ docker run --rm  \
   -v $(pwd)/add_user:/docker-entrypoint-initdb.d/init.js \
   -e MONGO_INITDB_ROOT_USERNAME=root \
   -e MONGO_INITDB_ROOT_PASSWORD=root \
- mongo:4.4  mongod --config /etc/mongod.conf
+ mongo:$mng_ver \
+ mongod --config /etc/mongod.conf
 #  mongo:7 bash 
 #  -v $(pwd)/data:/data/db \
 #  -v $(pwd)/log:/data/log \
