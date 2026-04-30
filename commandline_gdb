@@ -18,6 +18,10 @@ $ sed '/^#/d' Doxyfile | sed '/^[\r\n]/d'
 $ find ./ -name hal_config.h -exec diff -bur ./hal_config.h {} \;
 
 #------------batch + ps1 related-------------
+
+// static ip over terminal
+Start-Process powershell -Verb RunAs -ArgumentList 'New-NetIPAddress -InterfaceAlias "Ethernet 2" -IPAddress 192.168.1.50 -PrefixLength 24'
+
 file.bat
 @echo off
 REM some comment
