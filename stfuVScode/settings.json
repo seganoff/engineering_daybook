@@ -1,230 +1,160 @@
 {
-//expand all folders
-//"explorer.compactFolders":false, "scm.compactFolders":false,
-    "update.showReleaseNotes": false,
-    "editor.renderWhitespace": "all",
-    "editor.autoClosingBrackets": "never",
-    "editor.autoClosingComments": "never",
-    "editor.wordBasedSuggestions": "off",
-    "editor.acceptSuggestionOnEnter": "off",
-    "editor.quickSuggestions": {"other":false,"comments":false,"strings":false},
-    "editor.autoClosingQuotes": "never",
-    "editor.suggestOnTriggerCharacters": false,
-    "editor.acceptSuggestionOnCommitCharacter": false,
-    "editor.autoSurround": "never",
-    //vscode-docs.readthedocs.io/en/stable/editor/editingevolved/
-    //https://code.visualstudio.com/docs/getstarted/settings#_default-settings
-    //editor.hover.enabled: false,//
-    "editor.parameterHints.enabled": false,
-    "editor.suggest.snippetsPreventQuickSuggestions": false,
-    "editor.fontFamily": "Menlo, Consolas, 'DejaVu Sans Mono', monospace",
-    "workbench.settings.applyToAllProfiles": [
-        "editor.fontFamily",
-        "files.dialog.defaultPath"
-    ],
-    //"files.encoding": "any encoding",
-    "files.autoGuessEncoding": false,
-    "workbench.colorTheme": "Default High Contrast Light",
-    "editor.cursorWidth": 5,
-    "files.dialog.defaultPath": "d:\\git\\",
-	
-    "taskExplorer.enableAnsiconForAnt": false,
-    "taskExplorer.enableAnt": false,
-    "taskExplorer.enableSideBar": true,
-    "taskExplorer.enableTsc": false,
-    "taskExplorer.enableRuby": false,
-    "taskExplorer.enableAppPublisher": false,
-    "taskExplorer.enableBash": false,
-    "taskExplorer.enableBatch": false,
-    "taskExplorer.enableComposer": false,
-    "taskExplorer.enableExplorerView": false,
-    "taskExplorer.enableGradle": false,
-    "taskExplorer.enableGrunt": false,
-    "taskExplorer.enableGulp": false,
-    "taskExplorer.enableNpm": false,
-    "taskExplorer.enablePerl": false,
-    "taskExplorer.enableNsis": false,
-    "taskExplorer.enableMaven": false,
-    "taskExplorer.enableMake": false,
-    "taskExplorer.enablePipenv": false,
-    "taskExplorer.enablePowershell": false,
-    "taskExplorer.enablePython": false,
-    "taskExplorer.numLastTasks": 5,
-    "taskExplorer.clickAction": "Execute",
-    "taskExplorer.enabledTasks": {
-        "ant": false,
-        "bash": false,
-        //"batch": false,
-        "composer": false,
-        "gradle": false,
-        "grunt": false,
-        "gulp": false,
-        "make": false,
-        "maven": false,
-        "npm": false,
-        "perl": false,
-        "pipenv": false,
-        "powershell": false,
-        "python": false,
-        "ruby": false,
-        "tsc": false
-    },
-    "taskExplorer.showLastTasks": false,
-    "taskExplorer.groupMaxLevel": 3,
-    "files.associations": {
-        "functional": "cpp",
-        "xlocale": "cpp",
-        "any": "cpp",
-        "array": "cpp",
-        "atomic": "cpp",
-        "bit": "cpp",
-        "*.tcc": "cpp",
-        "bitset": "cpp",
-        "cctype": "cpp",
-        "charconv": "cpp",
-        "chrono": "cpp",
-        "clocale": "cpp",
-        "cmath": "cpp",
-        "compare": "cpp",
-        "concepts": "cpp",
-        "condition_variable": "cpp",
-        "cstdarg": "cpp",
-        "cstddef": "cpp",
-        "cstdint": "cpp",
-        "cstdio": "cpp",
-        "cstdlib": "cpp",
-        "cstring": "cpp",
-        "ctime": "cpp",
-        "cwchar": "cpp",
-        "cwctype": "cpp",
-        "deque": "cpp",
-        "list": "cpp",
-        "map": "cpp",
-        "set": "cpp",
-        "string": "cpp",
-        "unordered_map": "cpp",
-        "unordered_set": "cpp",
-        "vector": "cpp",
-        "exception": "cpp",
-        "algorithm": "cpp",
-        "iterator": "cpp",
-        "memory": "cpp",
-        "memory_resource": "cpp",
-        "numeric": "cpp",
-        "optional": "cpp",
-        "random": "cpp",
-        "ratio": "cpp",
-        "string_view": "cpp",
-        "system_error": "cpp",
-        "tuple": "cpp",
-        "type_traits": "cpp",
-        "utility": "cpp",
-        "format": "cpp",
-        "fstream": "cpp",
-        "initializer_list": "cpp",
-        "iomanip": "cpp",
-        "iosfwd": "cpp",
-        "iostream": "cpp",
-        "istream": "cpp",
-        "limits": "cpp",
-        "mutex": "cpp",
-        "new": "cpp",
-        "numbers": "cpp",
-        "ostream": "cpp",
-        "semaphore": "cpp",
-        "span": "cpp",
-        "sstream": "cpp",
-        "stdexcept": "cpp",
-        "stop_token": "cpp",
-        "streambuf": "cpp",
-        "thread": "cpp",
-        "cinttypes": "cpp",
-        "typeinfo": "cpp",
-        "variant": "cpp",
-        "queue": "cpp",
-        "stack": "cpp",
-        "xmemory": "cpp",
-        "xrefwrap": "cpp",
-        "xtree": "cpp",
-        "xutility": "cpp",
-        "ios": "cpp",
-        "locale": "cpp",
-        "xiosbase": "cpp",
-        "xlocinfo": "cpp",
-        "xlocmes": "cpp",
-        "xlocmon": "cpp",
-        "xlocnum": "cpp",
-        "xloctime": "cpp",
-        "xstddef": "cpp",
-        "xstring": "cpp",
-        "xtr1common": "cpp",
-        "*.yaml": "azure-pipelines",
-        "*.yml": "azure-pipelines",
-        "t_inc.h": "c",
-        "t_int.h": "c",
-        "t_cfg.h": "c",
-        "t_usr.h": "c",
-        "trace_tbb.h": "c"
-    },
-    "files.exclude": {
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-    "search.exclude": {
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-    "files.watcherExclude": {
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-    "workbench.localHistory.exclude": {
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-    "explorer.autoRevealExclude": {
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-    "C_Cpp.files.exclude": {
-        "**/.vscode": true,
-        "**/.vs": true,
-        "**/hiddenFolderName/*": true,
-        "**/hiddenFolderNameTest/*": true
-    },
-//--------------------- global launch workaround ---------------
-"launch":{},//close launch
-//---------------------global launch workaround end---------------
-"workbench.startupEditor": "none",
-"workbench.editor.enablePreview": false,
-"glassit.alpha": 195,
-"cmake.pinnedCommands": [
-    "workbench.action.tasks.configureTaskRunner",
-    "workbench.action.tasks.runTask"
-],
-//github/microsoft/vscode-cmake-tools/blob/main/docs/cmake-settings.md
-"cmake.autoSelectActiveFolder": false,
-"cmake.configureOnOpen": false,
-"cmake.configureOnEdit": false,
-"C_Cpp.dimInactiveRegions": false,
-// portable on linux additional tranquilizers || $HOME/vscodePortable/data/user-data/User/settings.json
-// missing: every folder EXPANDED in tree view
-"C_Cpp.configurationWarnings": "disabled",
-"accessibility.verbosity.notification": false,
-"zenMode.silentNotifications": false,
-"extensions.ignoreRecommendations": true,
-"workbench.remoteIndicator.showExtensionRecommendations": false,
-"extensions.autoCheckUpdates": false,
-"extensions.experimental.issueQuickAccess": false,
-"telemetry.telemetryLevel": "off",
-"C_Cpp.default.enableConfigurationSquiggles": false,
-"C_Cpp.exclusionPolicy": "checkFilesAndFolders",
-"explorer.fileNesting.enabled": true,
-"git.enabled": false,
-"markdown.editor.updateLinksOnPaste.enabled": false,
-"markdown.updateLinksOnFileMove.enableForDirectories": false,
-"update.mode": "none",
+  // =========================
+  // EDITOR CORE SILENCE
+  // =========================
+  "editor.quickSuggestions": {
+    "comments": "off",
+    "strings": "off",
+    "other": "off"
+  }
+, "editor.hover.enabled": false
+, "editor.parameterHints.enabled": false
+, "editor.codeLens": false
+, "editor.lightbulb.enabled": "off"
+, "editor.inlineSuggest.enabled": false
+, "editor.autoIndent": "none"
+, "editor.autoClosingBrackets": "never"
+, "editor.autoClosingQuotes": "never"
+, "editor.autoClosingComments": "never"
+, "editor.formatOnSave": false
+, "editor.formatOnType": false
+, "editor.wordBasedSuggestions": "off"
+, "editor.acceptSuggestionOnEnter": "off"
+, "editor.suggestOnTriggerCharacters": false
+, "editor.acceptSuggestionOnCommitCharacter": false
+, "editor.autoSurround": "never"
+, "editor.renderWhitespace": "all"
+, "editor.fontFamily": "Menlo, Consolas, 'DejaVu Sans Mono', monospace"
+, "editor.cursorWidth": 5
 
+  // =========================
+  // WORKBENCH / UI
+  // =========================
+, "workbench.startupEditor": "none"
+, "workbench.editor.enablePreview": false
+, "workbench.colorTheme": "Default High Contrast Light"
 
+  // =========================
+  // FILES / EXPLORER
+  // =========================
+, "files.autoGuessEncoding": false
+//, "files.dialog.defaultPath": "<yourPATH>" //TODO edit here bofore applying
+, "explorer.fileNesting.enabled": true
+, "explorer.compactFolders": false
+, "scm.compactFolders": false
+
+  // =========================
+  // LAUNCH / TASKS
+  // =========================
+, "launch": {}
+, "taskExplorer.showLastTasks": false
+
+  // =========================
+  // C/C++ EXTENSION
+  // =========================
+, "C_Cpp.dimInactiveRegions": false
+, "C_Cpp.configurationWarnings": "disabled"
+, "C_Cpp.default.enableConfigurationSquiggles": false
+, "C_Cpp.exclusionPolicy": "checkFilesAndFolders"
+, "C_Cpp.autocomplete": "Disabled"
+  // "C_Cpp.intelliSenseEngine": "disabled"
+
+  // =========================
+  // VIM EXTENSION
+  // =========================
+, "vim.easymotion": true
+, "vim.incsearch": true
+, "vim.useSystemClipboard": true
+, "vim.useCtrlKeys": true
+, "vim.hlsearch": true
+, "vim.leader": "<space>"
+, "vim.handleKeys": {
+    "<C-a>": false
+  , "<C-f>": false
+  }
+, "vim.insertModeKeyBindings": [
+    {
+      "before": ["j", "j"]
+    , "after": ["<Esc>"]
+    }
+  ]
+, "vim.normalModeKeyBindingsNonRecursive": [
+    {
+      "before": ["<leader>", "d"]
+    , "after": ["d", "d"]
+    }
+  , {
+      "before": ["<C-n>"]
+    , "commands": [":nohl"]
+    }
+  , {
+      "before": ["K"]
+    , "commands": ["lineBreakInsert"]
+    , "silent": true
+    }
+  ]
+
+  // =========================
+  // EXTENSIONS / SYSTEM
+  // =========================
+, "extensions.ignoreRecommendations": true
+, "extensions.recommendations": false
+, "extensions.autoCheckUpdates": false
+, "extensions.autoUpdate": false
+, "extensions.showRecommendationsOnlyOnDemand": true
+, "telemetry.telemetryLevel": "off"
+, "update.mode": "none"
+, "update.showReleaseNotes": false
+
+  // =========================
+  // MARKDOWN / GIT
+  // =========================
+, "markdown.editor.updateLinksOnPaste.enabled": false
+, "markdown.updateLinksOnFileMove.enableForDirectories": false
+, "git.enabled": false
+
+  // =========================
+  // ACCESSIBILITY / NOTIFICATIONS
+  // =========================
+, "accessibility.verbosity.notification": false
+, "zenMode.silentNotifications": true
+
+  // =========================
+  // SUGGESTION FILTERING
+  // =========================
+, "editor.suggest.showKeywords": false
+, "editor.suggest.showMethods": false
+, "editor.suggest.showFunctions": false
+, "editor.suggest.showConstructors": false
+, "editor.suggest.showFields": false
+, "editor.suggest.showVariables": false
+, "editor.suggest.showClasses": false
+, "editor.suggest.showStructs": false
+, "editor.suggest.showInterfaces": false
+, "editor.suggest.showModules": false
+, "editor.suggest.showProperties": false
+, "editor.suggest.showEvents": false
+, "editor.suggest.showOperators": false
+, "editor.suggest.showUnits": false
+, "editor.suggest.showValues": false
+, "editor.suggest.showConstants": false
+, "editor.suggest.showEnums": false
+, "editor.suggest.showEnumMembers": false
+, "editor.suggest.showSnippets": false
+
+  // =========================
+  // MISC
+  // =========================
+, "glassit.alpha": 195
+
+  // =========================
+  // VIM PERFORMANCE
+  // =========================
+, "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  }
 }
+//into keybindings.json
+// Place your key bindings in this file to override the defaults
+//[{ "key": "ctrl+shift+u","command": "insert-unicode.fromHexCode"},]
 
