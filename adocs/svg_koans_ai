@@ -1,0 +1,545 @@
+= SVG Koans
+:toc:
+:sectnums:
+
+hXXps://developer.mozilla.org/en-US/docs/Web/SVG/Tutorials/SVG_from_scratch/Paths
+
+A koan-style journey into hand-authored SVG.
+
+The goal is not to learn SVG features.
+
+The goal is to learn how to think in SVG.
+
+Every koan should:
+
+* fit into a single file
+* answer one question
+* introduce one new concept
+* be modified and broken intentionally
+* be recreated from memory before moving on
+
+== Koan 001 — The Empty Canvas
+
+Question:
+
+____
+Can I create an SVG that renders successfully?
+____
+
+Learn:
+
+* `svg`
+* `width`
+* `height`
+* `viewBox`
+
+Success criteria:
+
+* Browser renders something.
+* No XML errors.
+* You understand what the canvas dimensions mean.
+
+== Koan 002 — A Single Line
+
+Question:
+
+____
+Can I place a line exactly where I want?
+____
+
+Learn:
+
+* `line`
+* coordinates
+* SVG coordinate system
+
+Success criteria:
+
+* Draw horizontal lines.
+* Draw vertical lines.
+* Draw diagonal lines.
+* Predict endpoint locations before rendering.
+
+== Koan 003 — The Rectangle
+
+Question:
+
+____
+Can I position a box precisely?
+____
+
+Learn:
+
+* `rect`
+* `x`
+* `y`
+* `width`
+* `height`
+
+Experiments:
+
+* overlap rectangles
+* create margins
+* create padding manually
+
+Success criteria:
+
+* Recreate a UI window layout from memory.
+
+== Koan 004 — The Circle
+
+Question:
+
+____
+Can I reason about centers rather than corners?
+____
+
+Learn:
+
+* `circle`
+* `cx`
+* `cy`
+* `r`
+
+Success criteria:
+
+* Position circles symmetrically.
+* Create a traffic light.
+* Create a node in a graph.
+
+== Koan 005 — Stroke and Fill
+
+Question:
+
+____
+What is the difference between geometry and appearance?
+____
+
+Learn:
+
+* `stroke`
+* `stroke-width`
+* `fill`
+
+Experiments:
+
+* fill only
+* stroke only
+* transparent fill
+
+Success criteria:
+
+* Style existing shapes without changing geometry.
+
+== Koan 006 — Text
+
+Question:
+
+____
+Can I place labels intentionally?
+____
+
+Learn:
+
+* `text`
+* font sizing
+* baseline positioning
+
+Experiments:
+
+* label every shape
+* center labels manually
+
+Success criteria:
+
+* Build a labeled component box.
+
+== Koan 007 — Groups
+
+Question:
+
+____
+Can multiple shapes behave as one object?
+____
+
+Learn:
+
+* `g`
+
+Experiments:
+
+* apply styles to groups
+* move entire groups
+
+Success criteria:
+
+* Create a reusable component representation.
+
+== Koan 008 — ViewBox Mastery
+
+Question:
+
+____
+Can I stop thinking in pixels?
+____
+
+Learn:
+
+* `viewBox`
+
+Experiments:
+
+* scale SVG without changing geometry
+* resize browser window
+
+Success criteria:
+
+* SVG remains usable at multiple sizes.
+
+== Koan 009 — Building a Component
+
+Question:
+
+____
+Can I represent a software module?
+____
+
+Allowed elements:
+
+* rect
+* text
+
+Example ideas:
+
+* Logger
+* Tracer
+* Database
+* Renderer
+
+Success criteria:
+
+* Module is recognizable without explanation.
+
+== Koan 010 — Connecting Components
+
+Question:
+
+____
+Can I describe relationships?
+____
+
+Learn:
+
+* multiple shapes
+* connecting lines
+
+Success criteria:
+
+* Draw a dependency graph.
+
+== Koan 011 — Arrows
+
+Question:
+
+____
+Can I express direction?
+____
+
+Learn:
+
+* `defs`
+* `marker`
+
+Success criteria:
+
+* Build directional dependencies.
+* Show data flow.
+
+== Koan 012 — Tracing Architecture
+
+Question:
+
+____
+Can I visualize a tracing system?
+____
+
+Example:
+
+[source,text]
+----
+Application -> Tracer -> Sink
+----
+
+Success criteria:
+
+* Diagram explains architecture without prose.
+
+== Koan 013 — Lifelines
+
+Question:
+
+____
+Can I represent time?
+____
+
+Concepts:
+
+* vertical lines
+* labels
+* arrows
+
+Goal:
+
+Create a minimal sequence diagram.
+
+== Koan 014 — The First Path
+
+Question:
+
+____
+Can I draw geometry using instructions?
+____
+
+Learn:
+
+* `path`
+* `M`
+* `L`
+* `Z`
+
+Success criteria:
+
+* Recreate a rectangle using only a path.
+
+== Koan 015 — Relative Coordinates
+
+Question:
+
+____
+Can I describe shapes relative to current position?
+____
+
+Learn:
+
+* lowercase path commands
+
+Success criteria:
+
+* Rewrite existing paths using relative commands.
+
+== Koan 016 — Curves
+
+Question:
+
+____
+Can I describe motion rather than points?
+____
+
+Learn:
+
+* `Q`
+* `C`
+
+Experiments:
+
+* arches
+* waves
+* callout bubbles
+
+Success criteria:
+
+* Predict curve shape before rendering.
+
+== Koan 017 — Transformations
+
+Question:
+
+____
+Can I move geometry without changing geometry?
+____
+
+Learn:
+
+* translate
+* rotate
+* scale
+
+Success criteria:
+
+* Rotate an existing component.
+* Scale a graph without editing coordinates.
+
+== Koan 018 — Reuse
+
+Question:
+
+____
+Can one definition appear many times?
+____
+
+Learn:
+
+* `defs`
+* `use`
+
+Success criteria:
+
+* Define a component once.
+* Instantiate it multiple times.
+
+== Koan 019 — Layout Systems
+
+Question:
+
+____
+Can I construct a diagram systematically?
+____
+
+Build:
+
+* grid layout
+* rows
+* columns
+
+Success criteria:
+
+* No coordinates chosen randomly.
+
+== Koan 020 — Dependency Graph
+
+Question:
+
+____
+Can I explain a CMake project visually?
+____
+
+Example:
+
+[source,text]
+----
+app
+ |
+ v
+ tracing
+ |
+ v
+ core
+----
+
+Success criteria:
+
+* Diagram mirrors actual project structure.
+
+== Koan 021 — Call Graph
+
+Question:
+
+____
+Can I represent execution flow?
+____
+
+Example:
+
+[source,text]
+----
+main()
+ |
+ v
+ init()
+ |
+ v
+ trace()
+----
+
+Success criteria:
+
+* Reader understands control flow instantly.
+
+== Koan 022 — Sequence Diagram
+
+Question:
+
+____
+Can I represent communication over time?
+____
+
+Build:
+
+* lifelines
+* requests
+* responses
+
+Success criteria:
+
+* No additional explanation required.
+
+== Koan 023 — Memory Layout
+
+Question:
+
+____
+Can I represent memory spatially?
+____
+
+Example ideas:
+
+* stack
+* heap
+* arenas
+* ring buffers
+
+Success criteria:
+
+* Diagram teaches architecture.
+
+== Koan 024 — Complete Tracing System
+
+Question:
+
+____
+Can I explain my tracing component entirely with SVG?
+____
+
+Possible diagram:
+
+[source,text]
+----
+Application
+    |
+    v
+ Trace API
+    |
+    v
+ Ring Buffer
+    |
+    v
+ Exporter
+    |
+    v
+ Viewer
+----
+
+Success criteria:
+
+* Someone unfamiliar with the codebase understands the design.
+
+== Final Koan
+
+Question:
+
+____
+Can I look at exported SVG and understand it?
+____
+
+Exercise:
+
+* Open SVG generated by tools.
+* Read it manually.
+* Simplify it.
+* Rewrite parts by hand.
+
+Success criteria:
+
+You no longer think of SVG as graphics.
+
+You think of SVG as a geometry description language.
