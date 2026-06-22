@@ -1,0 +1,11 @@
+epoch0 = `stat -c %Z #{ARGV[0]}` #set for watching specific file change
+
+while true do
+  sleep 0.7;
+  epoch1 = `stat -c %Z #{ARGV[0]}`
+#  `asciidoctor-pdf -o tst.pdf #{ARGV[0]}` unless epoch0==epoch1
+  `asciidoctor-revealjs -r asciidoctor-diagram -a allow-uri-read -o tst.html #{ARGV[0]}` unless epoch0==epoch1
+  epoch0=epoch1 unless epoch0==epoch1
+end
+
+#asciidoctor-diagram-plantuml 
