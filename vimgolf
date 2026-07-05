@@ -13,3 +13,37 @@ Here are your keystrokes:
 
 Success! Your output matches. Your score: 16
 lowest: 12
+
+//---------setup--------
+u262d@e5506:~/.vimgolf$ ls -R
+.:
+config.yaml  put
+
+./put:
+u262d@e5506:~/.vimgolf$ cat config.yaml 
+---
+key: [hash.len32] //ese hash cambia cada vez con relogin al github, o se queda permanente?...
+//---------setup--------
+
+
+
+54862fbb3f90ac0002904cf5
+Similarly, one could riff with "x)3:x!<CR>" for 7
+
+@udioica: That's it! I figured you might see @zhansliu's comment and get it. Leaving the sentence movement was an accident though. I was trying to force you to alter the file in the process of moving to LINE 1. Works out fine though.
+
+@guyzmo: could anyone explain why `)3:wq!` works but not `)3:x!`?
+
+@gumnos: @guyzmo: The ":x" only writes if the file is considered changed. No change was made to the file, so Vim exits without actually writing it. As I mention in my 2nd comment here, to use "x!", you'd have to modify the file first (the initial "x")
+
+@shollinshead: How does )3:wq! work when id dosn't delete anything :S?
+
+@gumnos: @shollinshead: The difference is that ":x" only writes if the buffer has been modified; whereas ":w[q]" writes regardless of whether modifications have been made.
+
+@martinodelilo: can somebody explains what's happening here?
+
+@gumnos: @martinodelilo: the ")" jumps to the next sentence, starting with the "LINE1". Once there, the "3:" prepopulates the Ex command-line with ":.,+2". It then writes just those three lines to the (not-)named file, which, when the name is absent, is the same name as the current file. Finally, it quits. The "!" is there to force the overwriting of the current/existing file. The actual details are at ":help :wq" where you can read ":[range]wq[!] [++opt] [file]↵Same as above, but only write the lines in [range]."
+
+@fanaugen: strange: if you saw @zhansliu’s solution before posting yours, why does his have a later timestamp? Does this app use the users’ local time zone?
+
+@jyloup: :help N: to understand the 3: command
