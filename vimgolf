@@ -23,6 +23,7 @@ config.yaml  put
 u262d@e5506:~/.vimgolf$ cat config.yaml 
 ---
 key: [hash.len32] //ese hash cambia cada vez con relogin al github, o se queda permanente?...
+//confirm llave permanente
 //---------setup--------
 
 
@@ -47,3 +48,32 @@ Similarly, one could riff with "x)3:x!<CR>" for 7
 @fanaugen: strange: if you saw @zhansliu’s solution before posting yours, why does his have a later timestamp? Does this app use the users’ local time zone?
 
 @jyloup: :help N: to understand the 3: command
+
+4d1a34ccfa85f32065000004
+16 qq3jYpjddkq2@qZZ 
+15-14yy=Y qm3jYjVpq2@mZZ
+YVp selecionar linea del curso, p replace with (Y)
+
+:g/V/t.|+d<CR>ZZ buena;mala linea, deja solo 2xla buena linea
+
+:t.    " debajo de mí
+:t-    " encima de mí
+:t+    " debajo de la siguiente línea
+:t$    " al final del archivo
+:t0    " al principio del archivo
+
+!!! el curso se queda en la linea processada !!!
+
+:g hace una lista de todo encontrados...
+
+:g/V/ selecionar todos los lineas con 'V' (:g/V/d/ 'todos borrado)
+:g/V/t. debajo de mi | +d (.+1d , here +1 line delete) 
+1 The name "Vim" is an acronym for "Vi IMproved"   <- línea actual
+2 The name "Vim" is an acronym for "Vi IMproved"   <- copia (nueva) "falta un :normal! para aparecer en el buffer global (o algo asi)
+3 The name "Vim" is an acronym for                 <- siguiente
+
+AI: La copia aparece en el buffer, pero no en la lista de líneas que :global va recorriendo.
+
+la siguente linea esto borrada y por eso vim processe el siguente bloque.
+:g/V/t. > 6 new lines added
+
