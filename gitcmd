@@ -7,3 +7,16 @@ $ git config core.sshCommand "ssh -i /pathTo/key.priv" #chmod 600
 # url.insteadOf config for global configs
 #dump all containig missingTXT, eg. when unresolvable reference to `REF' for \ref command
 $ git log -c -S'missingtxt' -- </FilePath>
+
+ner seg prot Mtf33 tab open on rog 7
+keygen/<key> pub priv
+
+#gitconfig
+[core]
+sshCommand = "ssh -i $HOME/pathTo/key.priv"
+[remote "origin"]
+#url = https://github.com/<user_name>/<repo>.git
+url = git@github.com:<user_name>/<repo>.git
+
+this needs to be outsourced into .. giving the possibility to load from file. enabling multi ssh/pairs
+
