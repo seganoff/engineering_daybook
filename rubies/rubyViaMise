@@ -1,5 +1,5 @@
 apt packages: build-essential rustc libssl-dev libyaml-dev zlib1g-dev libgmp-dev git libmariadb-dev
-dnf install -y rustc libyaml-devel zlib-ng-compat-devel zlib-ng-devel libffi-devel
+dnf install -y rustc libyaml-devel zlib-ng-compat-devel libffi-devel (zlib-ng-devel)
 *mise inst:*
 curl https://mise.run | sh
 echo 'eval "$(~/.local/bin/mise activate)"' >> ~/.bashrc && source ~/.bashrc
